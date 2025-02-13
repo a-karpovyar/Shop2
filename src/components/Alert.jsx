@@ -1,18 +1,23 @@
-import { useEffect } from "react";
+import { useEffect, useContext } from "react";
 
-function Alert(props) {
-    const { name = '', closeAlert = Function.prototype } = props;
+import { ShopContext } from "../context";
 
-    useEffect(() => {
-        const timerId = setTimeout(closeAlert, 3000);
-        return () => {
-            clearTimeout(timerId);
-        }
-        //eslint-disable-next-line
-    }, [name]);
+function Alert() {
+  const { alertName:name = "", closeAlert = Function.prototype } =
+    useContext(ShopContext);
 
-    return <div id="toast-container">
-        <div className="toast">{name} добавлен в корзину</div>
+  useEffect(() => {
+    const timerId = setTimeout(closeAlert, 3000);
+    return () => {
+      clearTimeout(timerId);
+    };
+    //eslint-disable-next-line
+  }, [name]);
+
+  return (
+    <div id="toast-container">
+      <div className="toast">{name} добавлен в корзину</div>
     </div>
+  );
 }
 export { Alert };
